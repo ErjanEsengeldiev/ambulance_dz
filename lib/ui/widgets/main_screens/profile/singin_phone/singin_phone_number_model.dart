@@ -7,7 +7,6 @@ class SinginPhoneRegistModel extends ChangeNotifier {
   String? erorText;
   RegExp regexp = RegExp(r'(^(?:[+0]9)?[0-9]{9,12}$)');
 
-  
   void refreshTextFild() {
     erorText = null;
     notifyListeners();
@@ -15,10 +14,13 @@ class SinginPhoneRegistModel extends ChangeNotifier {
 
   void phoneRegist(BuildContext context) {
     regexp.hasMatch(phoneNumber)
-        ? Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => SinginConfirmationCode(
-                  codeFromSMS: Random().nextInt(9999),
-                )))
+        ? {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SinginConfirmationCode(
+                  number:phoneNumber ,
+                      codeFromSMS: Random().nextInt(9999),
+                    ))),
+          }
         : erorText = 'Вы ввели не правильный номер';
     notifyListeners();
   }

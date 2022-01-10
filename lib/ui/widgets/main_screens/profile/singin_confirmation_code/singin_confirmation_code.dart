@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class SinginConfirmationCode extends StatefulWidget {
   int codeFromSMS;
-  SinginConfirmationCode({Key? key, required this.codeFromSMS})
+  final String number;
+  SinginConfirmationCode(
+      {Key? key, required this.codeFromSMS, required this.number})
       : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class _SinginConfirmationCodeState extends State<SinginConfirmationCode> {
         title: const Text('Вход', style: TextStyle(color: MyColors.black)),
       ),
       body: SinginConfirmationCodeProvider(
+          phoneNumber: widget.number,
           codeFromSMS: widget.codeFromSMS,
           model: _model,
           child: const SinginConfirmationCodeBody()),
@@ -50,14 +53,16 @@ class SinginConfirmationCodeBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text('Введите код из смс',
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          Text('Введите код из смс',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-          const SizedBox(height: 150),
-          TextFieldForCode(model: model),
-          const SizedBox(height: 24),
-          const ReGetCode(),
-          const ElevationButtonForRegistCode(),
+          SizedBox(height: 120),
+          TextFieldForCode(),
+          SizedBox(height: 20),
+          ReGetCode(),
+          SizedBox(height: 24),
+          ElevationButtonForRegistCode(),
         ],
       ),
     );
@@ -73,7 +78,12 @@ class ElevationButtonForRegistCode extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = SinginConfirmationCodeProvider.watch(context)?.model;
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () => model?.chekCode(
+          context,
+          context
+              .findAncestorStateOfType<_SinginConfirmationCodeState>()
+              ?.widget
+              .number),
       child: const Text('Далее'),
       style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -108,26 +118,27 @@ class ReGetCode extends StatelessWidget {
 class TextFieldForCode extends StatelessWidget {
   const TextFieldForCode({
     Key? key,
-    required this.model,
   }) : super(key: key);
-
-  final SinginConfirmationCodeModel? model;
 
   @override
   Widget build(BuildContext context) {
+    final model = SinginConfirmationCodeProvider.watch(context)?.model;
     return TextField(
+      keyboardType: TextInputType.number,
       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
       obscuringCharacter: '*',
       obscureText: model!.obscureText,
       textAlign: TextAlign.center,
       autofocus: true,
-      onChanged: (code) {},
+      onChanged: (code) => {
+        model.txtFildText = code,
+      },
       decoration: InputDecoration(
         helperText:
             'Код из смс ${context.findAncestorStateOfType<_SinginConfirmationCodeState>()?.widget.codeFromSMS}',
         suffixIcon: InkWell(
-          onTap: () => model?.lookPassword(),
-          child: Icon(model?.suffixIcon),
+          onTap: () => model.lookPassword(),
+          child: Icon(model.suffixIcon),
         ),
         prefixText: 'Код',
         prefixStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
