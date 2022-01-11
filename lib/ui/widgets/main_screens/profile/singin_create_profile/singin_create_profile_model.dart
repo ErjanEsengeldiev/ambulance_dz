@@ -1,4 +1,4 @@
-import 'package:ambulance/ui/widgets/main_screens/profile/main_profile/main_profile_widget.dart';
+import 'package:ambulance/ui/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class CreateProfileModel extends ChangeNotifier {
@@ -12,7 +12,7 @@ class CreateProfileModel extends ChangeNotifier {
             .dependOnInheritedWidgetOfExactType<CreateProfileProviderl>()
             ?.number));
 
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const MainProfileWidget()));
+    Navigator.of(context).pushReplacementNamed(MainNavigationRouteName.mainScreen);
   }
 }
 
@@ -55,4 +55,6 @@ class User {
   });
 }
 
-List<User> usersList = [];
+List<User> usersList = [
+  User(name: 'Erjan', lastName: 'Esengeldiev', phoneNumber: '706096906')
+];
