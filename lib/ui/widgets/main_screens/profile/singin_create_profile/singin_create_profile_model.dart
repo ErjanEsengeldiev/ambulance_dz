@@ -17,7 +17,7 @@ class CreateProfileModel extends ChangeNotifier {
 }
 
 class CreateProfileProviderl extends InheritedNotifier {
-  final number;
+  final String number;
   final CreateProfileModel model;
   // ignore: use_key_in_widget_constructors
   const CreateProfileProviderl(

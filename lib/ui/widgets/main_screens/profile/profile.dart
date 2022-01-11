@@ -23,6 +23,7 @@ class _Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: MyColors.white,
@@ -33,53 +34,61 @@ class _Profile extends StatelessWidget {
               fontSize: 30, fontWeight: FontWeight.w700, color: MyColors.black),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            CircleAvatar(
-              backgroundColor: MyColors.whiteBlue,
-              radius: 50,
-              child: Text(
-                '${usersList[0].name.split('')[0]}${usersList[0].lastName.split('')[0]}',
-                style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w500,
-                    color: MyColors.white),
+      body: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor: MyColors.whiteBlue,
+            radius: 50,
+            child: Text(
+              '${usersList[0].name.split('')[0]}${usersList[0].lastName.split('')[0]}',
+              style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w500,
+                  color: MyColors.white),
+            ),
+          ),
+          Expanded(
+            child: DefaultTabController(
+              length: 3,
+              child: Scaffold(
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: MyColors.white,
+                  title: Column(
+                    children: [
+                      Text(
+                        '${usersList[0].name}  ${usersList[0].lastName}',
+                        style: const TextStyle(color: MyColors.black),
+                      ),
+                      Text('+996${usersList[0].phoneNumber}',
+                          style: const TextStyle(color: MyColors.black)),
+                    ],
+                  ),
+                  bottom: const TabBar(
+                    labelStyle:
+                        TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    indicatorColor: MyColors.navyBlue,
+                    labelColor: MyColors.navyBlue,
+                    tabs: [
+                      Tab(
+                        icon: Icon(Icons.ac_unit),
+                        text: 'Анализы',
+                      ),
+                      Tab(
+                        icon: Icon(Icons.ac_unit),
+                        text: 'Диагнозы',
+                      ),
+                      Tab(
+                        icon: Icon(Icons.ac_unit),
+                        text: 'Рекомендации',
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-            Text('${usersList[0].name}  ${usersList[0].lastName}'),
-            Text('+996${usersList[0].phoneNumber}'),
-            TabBar(
-              labelColor: MyColors.navyBlue,
-              labelStyle: TextStyle(fontSize: 12),
-              tabs: [
-                Tab(
-                    text: 'Анализы',
-                    icon: Icon(
-                      Icons.directions_car,
-                    )),
-                Tab(
-                    text: 'Диагнозы',
-                    icon: Icon(
-                      Icons.directions_transit,
-                    )),
-                Tab(
-                    text: 'Рекомендации',
-                    icon: Icon(
-                      Icons.directions_bike,
-                    )),
-              ],
-            ),
-            TabBarView(
-              children: [
-                Icon(Icons.flight, size: 350),
-                Icon(Icons.directions_transit, size: 350),
-                Icon(Icons.directions_car, size: 350),
-              ],
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
