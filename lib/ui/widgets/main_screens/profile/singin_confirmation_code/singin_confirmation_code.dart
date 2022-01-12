@@ -28,6 +28,13 @@ class _SinginConfirmationCodeState extends State<SinginConfirmationCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: MyColors.navyBlue,
+        bottom: const PreferredSize(
+            child: Divider(
+              color: MyColors.grey,
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(4.0)),
         elevation: 0,
         backgroundColor: MyColors.white,
         title: const Text('Вход', style: TextStyle(color: MyColors.black)),
@@ -48,7 +55,6 @@ class SinginConfirmationCodeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SinginConfirmationCodeProvider.watch(context)?.model;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
       child: Column(

@@ -5,7 +5,6 @@ import 'package:ambulance/ui/widgets/main_screens/profile/singin_phone/singin_ph
 abstract class MainNavigationRouteName {
   static const String mainScreen = '/';
   static const String profileScreen = '/profile';
-  // ignore: constant_identifier_names
   static const String singinPhoneRegist = '/profile/phoneregist';
   static const String singinChekCod = '/profile/phoneregist/phoneChek';
 }

@@ -29,6 +29,13 @@ class SinginPhoneRegistBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: MyColors.navyBlue,
+        bottom: const PreferredSize(
+            child: Divider(
+              color: MyColors.grey,
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(4.0)),
         elevation: 0,
         backgroundColor: MyColors.white,
         title: const Text('Вход', style: TextStyle(color: MyColors.black)),

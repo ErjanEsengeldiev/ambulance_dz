@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import 'colors/my_colors.dart';
 import 'main_screens/profile/profile.dart';
 
 class MainScreen extends StatefulWidget {
@@ -25,21 +26,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Navigation Bar Demo')),
-      drawer: Drawer(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Builder(
-                builder: (context) {
-                  return const Text('This is the Drawer');
-                }
-              ),
-            ],
-          ),
-        ),
-      ),
       body: PersistentTabView(
         context,
         controller: _controller,
@@ -81,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
         hideNavigationBar: _hideNavBar,
         decoration: NavBarDecoration(
             colorBehindNavBar: Colors.indigo,
-            borderRadius: BorderRadius.circular(20.0)),
+            borderRadius: BorderRadius.circular(0.0)),
         popAllScreensOnTapOfSelectedTab: true,
         itemAnimationProperties: const ItemAnimationProperties(
           duration: Duration(milliseconds: 400),
@@ -112,17 +98,17 @@ List<Widget> _buildScreens() {
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.home),
-      title: "Home",
-      activeColorPrimary: Colors.blue,
-      inactiveColorPrimary: Colors.grey,
-      inactiveColorSecondary: Colors.purple,
+      icon: const Icon(Icons.person_add_alt_1_outlined),
+      title: "Доктора",
+      activeColorPrimary: MyColors.navyBlue,
+      inactiveColorPrimary: MyColors.grey,
+      inactiveColorSecondary: MyColors.navyBlue,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.search),
-      title: ("Search"),
-      activeColorPrimary: Colors.teal,
-      inactiveColorPrimary: Colors.grey,
+      icon: const Icon(Icons.article_outlined),
+      title: ("Статьи"),
+      activeColorPrimary: MyColors.navyBlue,
+      inactiveColorPrimary: MyColors.grey,
       routeAndNavigatorSettings: RouteAndNavigatorSettings(
         initialRoute: '/',
         routes: {
@@ -132,11 +118,11 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       ),
     ),
     PersistentBottomNavBarItem(
-        icon: const Icon(Icons.add),
+        icon: const Icon(Icons.call) ,//Image.asset('assets/images/ambulanceCar.png'),
         title: ("Add"),
-        activeColorPrimary: Colors.blueAccent,
-        activeColorSecondary: Colors.white,
-        inactiveColorPrimary: Colors.white,
+        activeColorPrimary: MyColors.navyBlue,
+        activeColorSecondary: MyColors.white,
+        inactiveColorPrimary: MyColors.white,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
@@ -146,10 +132,10 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
         ),
         onPressed: (context) {}),
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.message),
-      title: ("Messages"),
-      activeColorPrimary: Colors.deepOrange,
-      inactiveColorPrimary: Colors.grey,
+      icon: const Icon(Icons.bookmark_border),
+      title: ('Мои доктора'),
+      activeColorPrimary: MyColors.navyBlue,
+      inactiveColorPrimary: MyColors.grey,
       routeAndNavigatorSettings: RouteAndNavigatorSettings(
         initialRoute: '/',
         routes: {
@@ -159,10 +145,10 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       ),
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.settings),
-      title: ("Settings"),
-      activeColorPrimary: Colors.indigo,
-      inactiveColorPrimary: Colors.grey,
+      icon: const Icon(Icons.person_outline),
+      title: ("Профиль"),
+      activeColorPrimary: MyColors.navyBlue,
+      inactiveColorPrimary: MyColors.grey,
       routeAndNavigatorSettings: RouteAndNavigatorSettings(
         initialRoute: '/',
         routes: {
@@ -173,82 +159,3 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     ),
   ];
 }
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-
-// import 'main_screens/profile/profile.dart';
-
-// class MainScreen extends StatefulWidget {
-//   const MainScreen({Key? key}) : super(key: key);
-
-//   @override
-//   State<MainScreen> createState() => _MainScreenState();
-// }
-
-// class _MainScreenState extends State<MainScreen> {
-//   int _selectedIndex = 3;
-//   static const TextStyle optionStyle =
-//       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-//   static const List<Widget> _widgetOptions = <Widget>[
-//     Text(
-//       'Index 0: Home',
-//       style: optionStyle,
-//     ),
-//     Text(
-//       'Index 1: Business',
-//       style: optionStyle,
-//     ),
-//     Text(
-//       'Index 0: Home',
-//       style: optionStyle,
-//     ),
-//     Profile(),
-//   ];
-
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: _widgetOptions.elementAt(_selectedIndex),
-//       ),
-//       bottomNavigationBar: BottomNavigationBar(
-//         showUnselectedLabels: true,
-//         type: BottomNavigationBarType.fixed,
-//         items: const <BottomNavigationBarItem>[
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.person_add),
-//             label: 'Доктора',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.business),
-//             label: 'Статьи',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.bookmark),
-//             label: 'Мои доктора',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.person),
-//             label: 'Профиль',
-//           ),
-//         ],
-//         currentIndex: _selectedIndex,
-//         unselectedItemColor: Colors.grey,
-//         selectedItemColor: Colors.blue[800],
-//         onTap: _onItemTapped,
-//       ),
-//     );
-//   }
-// }

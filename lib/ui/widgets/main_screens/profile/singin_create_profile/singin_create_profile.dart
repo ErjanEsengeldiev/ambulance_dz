@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CreateProfile extends StatefulWidget {
   final numbe;
-  const CreateProfile({Key? key,required this.numbe}) : super(key: key);
+  const CreateProfile({Key? key, required this.numbe}) : super(key: key);
 
   @override
   State<CreateProfile> createState() => _CreateProfileState();
@@ -15,7 +15,21 @@ class _CreateProfileState extends State<CreateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        foregroundColor: MyColors.navyBlue,
+        title: const Text(
+          'Потверждения кода',
+          style: TextStyle(color: MyColors.black),
+        ),
+        backgroundColor: MyColors.white,
+        elevation: 0,
+        bottom: const PreferredSize(
+            child: Divider(
+              color: MyColors.grey,
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(4.0)),
+      ),
       body: CreateProfileProviderl(
         number: widget.numbe,
         child: const CreateProfileBody(),
@@ -36,15 +50,15 @@ class CreateProfileBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children:  [
+        children: [
           Column(
-            children: const[
+            children: const [
               _TextFiildName(),
               SizedBox(height: 31),
               _TextFildLastName(),
             ],
           ),
-           const _ElevationButton()
+          const _ElevationButton()
         ],
       ),
     );
@@ -60,7 +74,7 @@ class _ElevationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = CreateProfileProviderl.watch(context)?.model;
     return ElevatedButton(
-      onPressed:()=> model?.createUser(context),
+      onPressed: () => model?.createUser(context),
       child: const Text('Далее'),
       style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
