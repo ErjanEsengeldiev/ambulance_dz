@@ -1,8 +1,15 @@
 import 'package:ambulance/ui/widgets/main_screens/profile/tab_bar_screens/tab_bar_profile_exemple.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileModel extends ChangeNotifier {
-  Image? image;
+  final ImagePicker _picker = ImagePicker();
+  XFile? image;
+  void getImage() async {
+    image = await _picker.pickImage(source: ImageSource.gallery);
+    notifyListeners();
+  }
+
   List<Analisese> listOfpdfAnalises = [
     // Analisese(
     //     date: '20.12.2021',

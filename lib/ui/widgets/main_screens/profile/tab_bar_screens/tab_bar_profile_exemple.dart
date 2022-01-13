@@ -14,45 +14,49 @@ class TabBarProfileExemple extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      listOfpdfAnalises.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 70),
-              child: Column(
-                children: [
-                  Image(image: AssetImage(icon)),
-                  const Text('У вас пока нет добавленных анализов'),
-                  const SizedBox(height: 30),
-                  InkWell(
-                    onTap: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.add_a_photo_outlined,
-                            color: MyColors.navyBlue),
-                        SizedBox(width: 10),
-                        Text('Добавить документ',
-                            style: TextStyle(color: MyColors.navyBlue)),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          : ListView.builder(
-              shrinkWrap: true,
-              itemCount: listOfpdfAnalises.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    subtitle: Text(listOfpdfAnalises[index].date),
-                    leading: listOfpdfAnalises[index].icon,
-                    title: Text(listOfpdfAnalises[index].title),
+    return SingleChildScrollView(
+      child: Column(children: [
+        listOfpdfAnalises.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 70),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Image(image: AssetImage(icon)),
+                      const Text('У вас пока нет добавленных анализов'),
+                      const SizedBox(height: 30),
+                      InkWell(
+                        onTap: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.add_a_photo_outlined,
+                                color: MyColors.navyBlue),
+                            SizedBox(width: 10),
+                            Text('Добавить документ',
+                                style: TextStyle(color: MyColors.navyBlue)),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                );
-              },
-            ),
-    ]);
+                ),
+              )
+            : ListView.builder(
+                shrinkWrap: true,
+                itemCount: listOfpdfAnalises.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      subtitle: Text(listOfpdfAnalises[index].date),
+                      leading: listOfpdfAnalises[index].icon,
+                      title: Text(listOfpdfAnalises[index].title),
+                    ),
+                  );
+                },
+              ),
+      ]),
+    );
   }
 }
 

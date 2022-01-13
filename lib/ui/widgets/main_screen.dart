@@ -1,6 +1,6 @@
+import 'package:ambulance/ui/widgets/main_screens/doctors/doctors.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'colors/my_colors.dart';
 import 'main_screens/profile/profile.dart';
 
@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
+    _controller = PersistentTabController(initialIndex: 4);
     _hideNavBar = false;
   }
 
@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
         hideNavigationBarWhenKeyboardShows: true,
         margin: const EdgeInsets.all(0.0),
         popActionScreens: PopActionScreensType.all,
-        bottomScreenMargin: 0.0,
+
         onWillPop: (context) async {
           await showDialog(
             context: context!,
@@ -87,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
 
 List<Widget> _buildScreens() {
   return const [
-    Center(child: Text('1')),
+    Doctors(),
     Center(child: Text('1')),
     Center(child: Text('1')),
     Center(child: Text('1')),
@@ -109,53 +109,32 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       title: ("Статьи"),
       activeColorPrimary: MyColors.navyBlue,
       inactiveColorPrimary: MyColors.grey,
-      routeAndNavigatorSettings: RouteAndNavigatorSettings(
-        initialRoute: '/',
-        routes: {
-          '/first': (context) => const Text('1'),
-          '/second': (context) => const Text('2'),
-        },
-      ),
     ),
     PersistentBottomNavBarItem(
-        icon: const Icon(Icons.call) ,//Image.asset('assets/images/ambulanceCar.png'),
-        title: ("Add"),
-        activeColorPrimary: MyColors.navyBlue,
-        activeColorSecondary: MyColors.white,
-        inactiveColorPrimary: MyColors.white,
-        routeAndNavigatorSettings: RouteAndNavigatorSettings(
-          initialRoute: '/',
-          routes: {
-            '/first': (context) => const Text('1'),
-            '/second': (context) => const Text('2'),
-          },
-        ),
-        onPressed: (context) {}),
+      icon: Column(
+        children: [
+          Image.asset('assets/images/ambulanceCar.png'),
+          const Text('Call',
+              style: TextStyle(
+                color: MyColors.white,
+              )),
+        ],
+      ),
+      activeColorPrimary: MyColors.navyBlue,
+      activeColorSecondary: MyColors.white,
+      inactiveColorPrimary: MyColors.white,
+    ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.bookmark_border),
       title: ('Мои доктора'),
       activeColorPrimary: MyColors.navyBlue,
       inactiveColorPrimary: MyColors.grey,
-      routeAndNavigatorSettings: RouteAndNavigatorSettings(
-        initialRoute: '/',
-        routes: {
-          '/first': (context) => const Text('1'),
-          '/second': (context) => const Text('2'),
-        },
-      ),
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.person_outline),
       title: ("Профиль"),
       activeColorPrimary: MyColors.navyBlue,
       inactiveColorPrimary: MyColors.grey,
-      routeAndNavigatorSettings: RouteAndNavigatorSettings(
-        initialRoute: '/',
-        routes: {
-          '/first': (context) => const Profile(),
-          '/second': (context) => const Profile(),
-        },
-      ),
     ),
   ];
 }

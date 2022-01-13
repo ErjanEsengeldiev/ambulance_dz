@@ -1,4 +1,5 @@
-import 'package:ambulance/ui/routes/routes.dart';
+import 'dart:io';
+
 import 'package:ambulance/ui/widgets/colors/my_colors.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/profile_model.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/singin_create_profile/singin_create_profile_model.dart';
@@ -59,21 +60,24 @@ class _ProfileBody extends StatelessWidget {
             Stack(
               children: [
                 CircleAvatar(
-                  backgroundColor: MyColors.whiteBlue,
-                  radius: 50,
-                  child: Text(
-                    '${usersList[0].name.split('')[0]}${usersList[0].lastName.split('')[0]}',
-                    style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.w500,
-                        color: MyColors.white),
-                  ),
-                ),
+                    backgroundImage:
+                        FileImage(File(_modelForBody!.image?.path ?? '')),
+                    backgroundColor: MyColors.whiteBlue,
+                    radius: 50,
+                    child: _modelForBody.image == null
+                        ? Text(
+                            '${usersList[0].name.split('')[0]}${usersList[0].lastName.split('')[0]}',
+                            style: const TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.w500,
+                                color: MyColors.white),
+                          )
+                        : const Text('')),
                 Positioned(
                     bottom: 0,
                     right: 0,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => _modelForBody.getImage(),
                       child: const CircleAvatar(
                         backgroundColor: MyColors.navyBlue,
                         radius: 15,
@@ -136,15 +140,16 @@ class _ProfileBody extends StatelessWidget {
                     child: TabBarView(
                       children: [
                         TabBarProfileExemple(
-                          listOfpdfAnalises: _modelForBody!.listOfpdfAnalises,
+                          listOfpdfAnalises: _modelForBody.listOfpdfAnalises,
                           icon: 'assets/images/page-with-curl_1f4c3 1.png',
                         ),
                         TabBarProfileExemple(
-                          listOfpdfAnalises:_modelForBody.listOfpdfAnalises,
+                          listOfpdfAnalises: _modelForBody.listOfpdfDiagnosis,
                           icon: 'assets/images/file-folder_1f4c1 1.png',
                         ),
                         TabBarProfileExemple(
-                          listOfpdfAnalises: _modelForBody.listOfpdfAnalises,
+                          listOfpdfAnalises:
+                              _modelForBody.listOfpdfRecomendation,
                           icon: 'assets/images/page-with-curl_1f4c3 1.png',
                         ),
                       ],
