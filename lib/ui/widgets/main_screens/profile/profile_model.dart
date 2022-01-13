@@ -10,6 +10,8 @@ class ProfileModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addAnalises() {}
+
   List<Analisese> listOfpdfAnalises = [
     // Analisese(
     //     date: '20.12.2021',
