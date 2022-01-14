@@ -55,21 +55,23 @@ class SinginConfirmationCodeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          Text('Введите код из смс',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-          SizedBox(height: 120),
-          TextFieldForCode(),
-          SizedBox(height: 20),
-          ReGetCode(),
-          SizedBox(height: 24),
-          ElevationButtonForRegistCode(),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: const [
+            Text('Введите код из смс',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+            SizedBox(height: 120),
+            TextFieldForCode(),
+            SizedBox(height: 20),
+            ReGetCode(),
+            SizedBox(height: 24),
+            ElevationButtonForRegistCode(),
+          ],
+        ),
       ),
     );
   }

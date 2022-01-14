@@ -140,14 +140,17 @@ class _ProfileBody extends StatelessWidget {
                     child: TabBarView(
                       children: [
                         TabBarProfileExemple(
+                          index: 0,
                           listOfpdfAnalises: _modelForBody.listOfpdfAnalises,
                           icon: 'assets/images/page-with-curl_1f4c3 1.png',
                         ),
                         TabBarProfileExemple(
+                          index: 1,
                           listOfpdfAnalises: _modelForBody.listOfpdfDiagnosis,
                           icon: 'assets/images/file-folder_1f4c1 1.png',
                         ),
                         TabBarProfileExemple(
+                          index: 2,
                           listOfpdfAnalises:
                               _modelForBody.listOfpdfRecomendation,
                           icon: 'assets/images/page-with-curl_1f4c3 1.png',

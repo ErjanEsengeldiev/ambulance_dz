@@ -1,3 +1,4 @@
+import 'package:ambulance/ui/widgets/colors/my_colors.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/tab_bar_screens/tab_bar_profile_exemple.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +11,73 @@ class ProfileModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addAnalises() {}
+  void addAnalises(BuildContext context, int index) {
+    String name = '';
+    Icon image = const Icon(Icons.picture_as_pdf);
+    String date = '12.12.2021';
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: double.infinity,
+          color: MyColors.white,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, left: 20,right: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('Анализы',
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 20),
+                const Text('Названия'),
+                TextField(
+                  onChanged: (docName) {
+                    name = docName;
+                  },
+                  decoration: const InputDecoration(
+                      hintText: 'Введите названия документа'),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                    onPressed: () {
+                      switch (index) {
+                        case 0:
+                          {
+                            listOfpdfAnalises.add(Analisese(
+                                date: date, icon: image, title: name));
+                            notifyListeners();
+                            Navigator.pop(context);
+                          }
+                          break;
+                        case 1:
+                          {
+                            listOfpdfDiagnosis.add(Analisese(
+                                date: date, icon: image, title: name));
+                            notifyListeners();
+                            Navigator.pop(context);
+                          }
+                          break;
+                        case 2:
+                          {
+                            listOfpdfRecomendation.add(Analisese(
+                                date: date, icon: image, title: name));
+                            notifyListeners();
+                            Navigator.pop(context);
+                          }
+                          break;
+                      }
+                    },
+                    child: const Text('Добавить документ')),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   List<Analisese> listOfpdfAnalises = [
     // Analisese(

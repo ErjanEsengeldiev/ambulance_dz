@@ -48,14 +48,14 @@ class CreateProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: ListView(
         children: [
           Column(
             children: const [
               _TextFiildName(),
               SizedBox(height: 31),
               _TextFildLastName(),
+              SizedBox(height: 31),
             ],
           ),
           const _ElevationButton()
