@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:ambulance/ui/widgets/colors/my_colors.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../profile_model.dart';
 
@@ -53,7 +55,8 @@ class TabBarProfileExemple extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   child: InkWell(
                     onTap: () {
                       ProfileRouter.read(context)
@@ -73,6 +76,7 @@ class TabBarProfileExemple extends StatelessWidget {
                   ),
                 ),
                 ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: listOfpdfAnalises.length,
                   itemBuilder: (context, indexForListView) {
@@ -80,7 +84,16 @@ class TabBarProfileExemple extends StatelessWidget {
                       child: ListTile(
                         subtitle:
                             Text(listOfpdfAnalises[indexForListView].date),
-                        leading: listOfpdfAnalises[indexForListView].icon,
+                        leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.file(
+                              File(listOfpdfAnalises[indexForListView]
+                                  .icon
+                                  .path),
+                                  fit: BoxFit.cover,
+                              width:60,
+                              height: 60,
+                            )),
                         title: Text(listOfpdfAnalises[indexForListView].title),
                       ),
                     );
@@ -94,7 +107,7 @@ class TabBarProfileExemple extends StatelessWidget {
 
 class Analisese {
   String title;
-  Icon icon;
+  XFile icon;
   String date;
   Analisese({
     required this.date,

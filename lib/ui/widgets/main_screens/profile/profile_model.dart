@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:ambulance/ui/widgets/colors/my_colors.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/tab_bar_screens/tab_bar_profile_exemple.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class ProfileModel extends ChangeNotifier {
 
   void addAnalises(BuildContext context, int index) {
     String name = '';
-    Icon image = const Icon(Icons.picture_as_pdf);
+    XFile? image;
     String date = '12.12.2021';
     showModalBottomSheet<void>(
       context: context,
@@ -22,7 +23,7 @@ class ProfileModel extends ChangeNotifier {
           height: double.infinity,
           color: MyColors.white,
           child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20,right: 20),
+            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,28 +43,34 @@ class ProfileModel extends ChangeNotifier {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       switch (index) {
                         case 0:
                           {
+                            image = await _picker.pickImage(
+                                source: ImageSource.gallery);
                             listOfpdfAnalises.add(Analisese(
-                                date: date, icon: image, title: name));
+                                date: date, icon: image!, title: name));
                             notifyListeners();
                             Navigator.pop(context);
                           }
                           break;
                         case 1:
                           {
+                            image = await _picker.pickImage(
+                                source: ImageSource.gallery);
                             listOfpdfDiagnosis.add(Analisese(
-                                date: date, icon: image, title: name));
+                                date: date, icon: image!, title: name));
                             notifyListeners();
                             Navigator.pop(context);
                           }
                           break;
                         case 2:
                           {
+                            image = await _picker.pickImage(
+                                source: ImageSource.gallery);
                             listOfpdfRecomendation.add(Analisese(
-                                date: date, icon: image, title: name));
+                                date: date, icon: image!, title: name));
                             notifyListeners();
                             Navigator.pop(context);
                           }
@@ -79,38 +86,11 @@ class ProfileModel extends ChangeNotifier {
     );
   }
 
-  List<Analisese> listOfpdfAnalises = [
-    // Analisese(
-    //     date: '20.12.2021',
-    //     icon: const Icon(Icons.picture_as_pdf),
-    //     title: 'Клинический Анализ'),
-    // Analisese(
-    //     date: '20.11.2021',
-    //     icon: const Icon(Icons.picture_as_pdf),
-    //     title: 'Иммунологический анализ')
-  ];
+  List<Analisese> listOfpdfAnalises = [];
 
-  List<Analisese> listOfpdfDiagnosis = [
-    Analisese(
-        date: '20.12.2021',
-        icon: const Icon(Icons.picture_as_pdf),
-        title: 'Диагнозы'),
-    Analisese(
-        date: '20.11.2021',
-        icon: const Icon(Icons.picture_as_pdf),
-        title: 'Иммунологический диагноз')
-  ];
+  List<Analisese> listOfpdfDiagnosis = [];
 
-  List<Analisese> listOfpdfRecomendation = [
-    Analisese(
-        date: '20.12.2021',
-        icon: const Icon(Icons.picture_as_pdf),
-        title: 'Рукомендации'),
-    Analisese(
-        date: '20.11.2021',
-        icon: const Icon(Icons.picture_as_pdf),
-        title: 'Рукомендации')
-  ];
+  List<Analisese> listOfpdfRecomendation = [];
 }
 
 class ProfileRouter extends InheritedNotifier {

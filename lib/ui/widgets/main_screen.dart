@@ -2,6 +2,7 @@ import 'package:ambulance/ui/widgets/main_screens/doctors/doctors.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'colors/my_colors.dart';
+import 'main_screens/article/article.dart';
 import 'main_screens/profile/profile.dart';
 
 class MainScreen extends StatefulWidget {
@@ -88,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
 List<Widget> _buildScreens() {
   return const [
     Doctors(),
-    Center(child: Text('1')),
+    Article(),
     Center(child: Text('1')),
     Center(child: Text('1')),
     Profile(),
