@@ -1,5 +1,7 @@
 import 'dart:io';
-import 'package:ambulance/ui/widgets/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/const_widgets/elevated_button.dart';
+import 'package:ambulance/ui/widgets/const/styles/text_style.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/profile_model.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/singin_create_profile/singin_create_profile_model.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/singin_phone/singin_phone_number.dart';
@@ -32,10 +34,23 @@ class _Profile extends StatelessWidget {
   }
 }
 
-class _ProfileBody extends StatelessWidget {
+class _ProfileBody extends StatefulWidget {
   const _ProfileBody({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_ProfileBody> createState() => _ProfileBodyState();
+}
+
+class _ProfileBodyState extends State<_ProfileBody>
+    with TickerProviderStateMixin {
+  late TabController _controller = TabController(length: 3, vsync: this);
+  @override
+  void initState() {
+    _controller = TabController(length: 3, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +81,7 @@ class _ProfileBody extends StatelessWidget {
                     child: _modelForBody.image == null
                         ? Text(
                             '${usersList[0].name.split('')[0]}${usersList[0].lastName.split('')[0]}',
-                            style: const TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w500,
-                                color: MyColors.white),
-                          )
+                            style: MyTextStyles.f40w500cWhite)
                         : const Text('')),
                 Positioned(
                     bottom: 0,
@@ -89,77 +100,61 @@ class _ProfileBody extends StatelessWidget {
                     ))
               ],
             ),
-            Expanded(
-              child: DefaultTabController(
-                length: 3,
-                child: Scaffold(
-                  backgroundColor: MyColors.whiteGrey,
-                  appBar: AppBar(
-                    elevation: 0,
-                    backgroundColor: MyColors.white,
-                    title: Column(
-                      children: [
-                        Text(
-                          '${usersList[0].name}  ${usersList[0].lastName}',
-                          style: const TextStyle(color: MyColors.black),
-                        ),
-                        Text('+996${usersList[0].phoneNumber}',
-                            style: const TextStyle(
-                                color: MyColors.black,
-                                fontWeight: FontWeight.w300)),
-                      ],
-                    ),
-                    bottom: const TabBar(
-                      labelStyle:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                      indicatorColor: MyColors.navyBlue,
-                      labelColor: MyColors.navyBlue,
-                      tabs: [
-                        Tab(
-                          icon: Image(
-                              image: AssetImage('assets/images/Vector.png')),
-                          text: 'Анализы',
-                        ),
-                        Tab(
-                          icon: Image(
-                              image:
-                                  AssetImage('assets/images/Vector (1).png')),
-                          text: 'Диагнозы',
-                        ),
-                        Tab(
-                          icon: Image(
-                              image:
-                                  AssetImage('assets/images/Vector (2).png')),
-                          text: 'Рекомендации',
-                        )
-                      ],
-                    ),
-                  ),
-                  body: SizedBox(
-                    child: TabBarView(
-                      children: [
-                        TabBarProfileExemple(
-                          index: 0,
-                          listOfpdfAnalises: _modelForBody.listOfpdfAnalises,
-                          icon: 'assets/images/page-with-curl_1f4c3 1.png',
-                        ),
-                        TabBarProfileExemple(
-                          index: 1,
-                          listOfpdfAnalises: _modelForBody.listOfpdfDiagnosis,
-                          icon: 'assets/images/file-folder_1f4c1 1.png',
-                        ),
-                        TabBarProfileExemple(
-                          index: 2,
-                          listOfpdfAnalises:
-                              _modelForBody.listOfpdfRecomendation,
-                          icon: 'assets/images/page-with-curl_1f4c3 1.png',
-                        ),
-                      ],
-                    ),
-                  ),
+            Text(
+              '${usersList[0].name}  ${usersList[0].lastName}',
+              style: const TextStyle(color: MyColors.black),
+            ),
+            Text(
+              '+996${usersList[0].phoneNumber}',
+              style: MyTextStyles.w300cVlack,
+            ),
+            TabBar(
+              controller: _controller,
+              labelStyle: MyTextStyles.f12wBold,
+              indicatorColor: MyColors.navyBlue,
+              labelColor: MyColors.navyBlue,
+              tabs: const [
+                Tab(
+                  icon: Image(image: AssetImage('assets/images/Vector.png')),
+                  text: 'Анализы',
                 ),
+                Tab(
+                  icon:
+                      Image(image: AssetImage('assets/images/Vector (1).png')),
+                  text: 'Диагнозы',
+                ),
+                Tab(
+                  icon:
+                      Image(image: AssetImage('assets/images/Vector (2).png')),
+                  text: 'Рекомендации',
+                )
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _controller,
+                children: [
+                  TabBarProfileExemple(
+                    modelForBody: _modelForBody,
+                    index: 0,
+                    listOfpdfAnalises: _modelForBody.listOfpdfAnalises,
+                    icon: 'assets/images/page-with-curl_1f4c3 1.png',
+                  ),
+                  TabBarProfileExemple(
+                    modelForBody: _modelForBody,
+                    index: 1,
+                    listOfpdfAnalises: _modelForBody.listOfpdfDiagnosis,
+                    icon: 'assets/images/file-folder_1f4c1 1.png',
+                  ),
+                  TabBarProfileExemple(
+                    modelForBody: _modelForBody,
+                    index: 2,
+                    listOfpdfAnalises: _modelForBody.listOfpdfRecomendation,
+                    icon: 'assets/images/page-with-curl_1f4c3 1.png',
+                  ),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -190,19 +185,16 @@ class _RegistWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 18),
         child: Column(
           children: [
-            const Text('Зачем нужен Профиль?',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
+            const Text('Зачем нужен Профиль?', style: MyTextStyles.f22w500),
             Column(children: _listTilesList),
             const SizedBox(height: 10),
-            ElevatedButton(
-                style: _buttonStyle,
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SinginPhoneRegist()));
-                },
-                child: const Text(
-                  'Войти',
-                )),
+            MyElevatedButton(
+              title: 'Войти',
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SinginPhoneRegist()));
+              },
+            ),
           ],
         ),
       ),
@@ -215,7 +207,7 @@ List<Widget> _listTilesList = const [
     leading: Image(image: AssetImage('assets/images/hospital_1f3e5.png')),
     title: Text(
       'Записывайтесь на прием к самым лучшим специалистам',
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+      style: MyTextStyles.f15w400,
     ),
   ),
   SizedBox(
@@ -225,7 +217,7 @@ List<Widget> _listTilesList = const [
     leading: Image(image: AssetImage('assets/images/clipboard_1f4cb.png')),
     title: Text(
       'Сохраняйте результаты ваших анализов, диагнозы и рекомендации от врачей в собственную библиотеку',
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+      style: MyTextStyles.f15w400,
     ),
   ),
   SizedBox(
@@ -236,7 +228,7 @@ List<Widget> _listTilesList = const [
         Image(image: AssetImage('assets/images/speech-balloon_1f4ac (1).png')),
     title: Text(
       'Просматривайте отзывы о врачах и дополняйте собственными комментариями',
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+      style: MyTextStyles.f15w400,
     ),
   ),
   SizedBox(
@@ -246,14 +238,7 @@ List<Widget> _listTilesList = const [
     leading: Image(image: AssetImage('assets/images/bellhop-bell_1f6ce.png')),
     title: Text(
       'Получайте уведомления о приеме или о поступивших сообщениях',
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+      style: MyTextStyles.f15w400,
     ),
   ),
 ];
-
-var _buttonStyle = ButtonStyle(
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
-    backgroundColor: MaterialStateProperty.all(MyColors.navyBlue),
-    padding: MaterialStateProperty.all(
-        const EdgeInsets.symmetric(horizontal: 120, vertical: 20)));

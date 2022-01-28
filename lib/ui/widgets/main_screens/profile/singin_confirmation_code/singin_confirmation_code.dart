@@ -1,5 +1,7 @@
 import 'dart:math';
-import 'package:ambulance/ui/widgets/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/const_widgets/elevated_button.dart';
+import 'package:ambulance/ui/widgets/const/styles/text_style.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/singin_confirmation_code/singin_confirmation_code_model.dart';
 import 'package:flutter/material.dart';
 
@@ -55,24 +57,35 @@ class SinginConfirmationCodeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const [
-            Text('Введите код из смс',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-            SizedBox(height: 120),
-            TextFieldForCode(),
-            SizedBox(height: 20),
-            ReGetCode(),
-            SizedBox(height: 24),
-            ElevationButtonForRegistCode(),
-          ],
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                Text('Введите код из смс', style: MyTextStyles.f22w500),
+                SizedBox(height: 120),
+                TextFieldForCode(),
+                SizedBox(height: 20),
+                ReGetCode(),
+              ],
+            ),
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
+          child: Column(
+            children: const [
+              Spacer(),
+              ElevationButtonForRegistCode(),
+              SizedBox(height: 20)
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -85,21 +98,14 @@ class ElevationButtonForRegistCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = SinginConfirmationCodeProvider.watch(context)?.model;
-    return ElevatedButton(
-      onPressed: () => model?.chekCode(
-          context,
-          context
-              .findAncestorStateOfType<_SinginConfirmationCodeState>()
-              ?.widget
-              .number),
-      child: const Text('Далее'),
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
-          backgroundColor: MaterialStateProperty.all(MyColors.navyBlue),
-          padding: MaterialStateProperty.all(
-              const EdgeInsets.symmetric(horizontal: 120, vertical: 20))),
-    );
+    return MyElevatedButton(
+        onPressed: () => model?.chekCode(
+            context,
+            context
+                .findAncestorStateOfType<_SinginConfirmationCodeState>()
+                ?.widget
+                .number),
+        title: 'Далее');
   }
 }
 
@@ -116,8 +122,7 @@ class ReGetCode extends StatelessWidget {
           ?._changeCode(),
       child: const Text(
         'Получить код повторно',
-        style:
-            TextStyle(decoration: TextDecoration.underline, color: Colors.blue),
+        style: MyTextStyles.decorUnderlineColorBlue,
       ),
     );
   }
@@ -133,7 +138,7 @@ class TextFieldForCode extends StatelessWidget {
     final model = SinginConfirmationCodeProvider.watch(context)?.model;
     return TextField(
       keyboardType: TextInputType.number,
-      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+      style: MyTextStyles.f18w600,
       obscuringCharacter: '*',
       obscureText: model!.obscureText,
       textAlign: TextAlign.center,
@@ -149,7 +154,7 @@ class TextFieldForCode extends StatelessWidget {
           child: Icon(model.suffixIcon),
         ),
         prefixText: 'Код',
-        prefixStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+        prefixStyle: MyTextStyles.f18w600,
       ),
     );
   }

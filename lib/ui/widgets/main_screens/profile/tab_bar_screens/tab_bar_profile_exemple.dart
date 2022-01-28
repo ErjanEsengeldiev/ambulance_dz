@@ -1,17 +1,19 @@
 import 'dart:io';
 
-import 'package:ambulance/ui/widgets/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../profile_model.dart';
 
 class TabBarProfileExemple extends StatelessWidget {
+  final ProfileModel modelForBody;
   final int index;
   final List<Analisese> listOfpdfAnalises;
   final String icon;
   // final IconData iconData;
   const TabBarProfileExemple({
+    required this.modelForBody,
     Key? key,
     required this.index,
     required this.icon,
@@ -34,7 +36,7 @@ class TabBarProfileExemple extends StatelessWidget {
                     onTap: () {
                       ProfileRouter.read(context)
                           ?.model
-                          .addAnalises(context, index);
+                          .addAnalises(context, index, modelForBody);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +63,7 @@ class TabBarProfileExemple extends StatelessWidget {
                     onTap: () {
                       ProfileRouter.read(context)
                           ?.model
-                          .addAnalises(context, index);
+                          .addAnalises(context, index, modelForBody);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -90,8 +92,8 @@ class TabBarProfileExemple extends StatelessWidget {
                               File(listOfpdfAnalises[indexForListView]
                                   .icon
                                   .path),
-                                  fit: BoxFit.cover,
-                              width:60,
+                              fit: BoxFit.cover,
+                              width: 60,
                               height: 60,
                             )),
                         title: Text(listOfpdfAnalises[indexForListView].title),

@@ -6,8 +6,7 @@ class MyColors {
   static const black = Colors.black;
   static const whiteBlue = Color.fromRGBO(182, 216, 255, 1);
   static const blue = Colors.blue;
-  static const grey = Colors.grey;
-  
+  static const grey = Colors.grey; 
   static const whiteGrey = Color.fromRGBO(239, 239, 243, 1);
   static const blackGrey = Color.fromRGBO(117, 117, 117, 1);
 }

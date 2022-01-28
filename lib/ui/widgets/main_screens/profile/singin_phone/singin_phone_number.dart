@@ -1,4 +1,6 @@
-import 'package:ambulance/ui/widgets/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/const_widgets/elevated_button.dart';
+import 'package:ambulance/ui/widgets/const/styles/text_style.dart';
 import 'package:flutter/material.dart';
 import 'singin_phone_number_model.dart';
 
@@ -42,12 +44,13 @@ class SinginPhoneRegistBody extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
           children: const [
             TextFildForNumberRegist(),
             SizedBox(height: 70),
-            _ElevationButtonForPhoneRegist()
+            Spacer(),
+            _ElevationButtonForPhoneRegist(),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -63,15 +66,9 @@ class _ElevationButtonForPhoneRegist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = SinginPhoneRegistProvider.read(context)?.model;
-    return ElevatedButton(
+    return MyElevatedButton(
       onPressed: () => model?.phoneRegist(context),
-      child: const Text('Далее'),
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
-          backgroundColor: MaterialStateProperty.all(MyColors.navyBlue),
-          padding: MaterialStateProperty.all(
-              const EdgeInsets.symmetric(horizontal: 120, vertical: 20))),
+      title: 'Далее',
     );
   }
 }
@@ -85,14 +82,13 @@ class TextFildForNumberRegist extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = SinginPhoneRegistProvider.watch(context)?.model;
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Text('Войти',
-          style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700)),
+      const Text('Войти', style: MyTextStyles.f34w700),
       const SizedBox(
         height: 50,
       ),
-      const Text('Номер телефона',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+      const Text('Номер телефона', style: MyTextStyles.f15w400),
       TextField(
+        maxLength: 9,
         keyboardType: TextInputType.phone,
         autofocus: true,
         onChanged: (number) {
@@ -100,6 +96,7 @@ class TextFildForNumberRegist extends StatelessWidget {
           model!.phoneNumber = number;
         },
         decoration: InputDecoration(
+          counterText: '',
           errorText: model?.erorText,
           hintText: '--- --- ---',
           prefix: const Text('+996 '),

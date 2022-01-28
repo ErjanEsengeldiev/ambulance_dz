@@ -1,18 +1,17 @@
-import 'dart:io';
-import 'package:ambulance/ui/widgets/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/tab_bar_screens/tab_bar_profile_exemple.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileModel extends ChangeNotifier {
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
   XFile? image;
   void getImage() async {
-    image = await _picker.pickImage(source: ImageSource.gallery);
+    image = await picker.pickImage(source: ImageSource.gallery);
     notifyListeners();
   }
 
-  void addAnalises(BuildContext context, int index) {
+  void addAnalises(BuildContext context, int index, model) {
     String name = '';
     XFile? image;
     String date = '12.12.2021';
@@ -47,7 +46,7 @@ class ProfileModel extends ChangeNotifier {
                       switch (index) {
                         case 0:
                           {
-                            image = await _picker.pickImage(
+                            image = await picker.pickImage(
                                 source: ImageSource.gallery);
                             listOfpdfAnalises.add(Analisese(
                                 date: date, icon: image!, title: name));
@@ -57,7 +56,7 @@ class ProfileModel extends ChangeNotifier {
                           break;
                         case 1:
                           {
-                            image = await _picker.pickImage(
+                            image = await picker.pickImage(
                                 source: ImageSource.gallery);
                             listOfpdfDiagnosis.add(Analisese(
                                 date: date, icon: image!, title: name));
@@ -67,7 +66,7 @@ class ProfileModel extends ChangeNotifier {
                           break;
                         case 2:
                           {
-                            image = await _picker.pickImage(
+                            image = await picker.pickImage(
                                 source: ImageSource.gallery);
                             listOfpdfRecomendation.add(Analisese(
                                 date: date, icon: image!, title: name));

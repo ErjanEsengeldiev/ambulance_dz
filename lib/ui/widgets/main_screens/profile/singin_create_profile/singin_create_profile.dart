@@ -1,4 +1,5 @@
-import 'package:ambulance/ui/widgets/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/const_widgets/elevated_button.dart';
 import 'package:ambulance/ui/widgets/main_screens/profile/singin_create_profile/singin_create_profile_model.dart';
 import 'package:flutter/material.dart';
 
@@ -48,17 +49,26 @@ class CreateProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
-      child: ListView(
+      child: Stack(
         children: [
-          Column(
-            children: const [
-              _TextFiildName(),
-              SizedBox(height: 31),
-              _TextFildLastName(),
-              SizedBox(height: 31),
+          ListView(
+            children: [
+              Column(
+                children: const [
+                  _TextFiildName(),
+                  SizedBox(height: 31),
+                  _TextFildLastName(),
+                  SizedBox(height: 31),
+                ],
+              ),
             ],
           ),
-          const _ElevationButton()
+          Column(
+            children: const [
+              Spacer(),
+              _ElevationButton(),
+            ],
+          )
         ],
       ),
     );
@@ -73,15 +83,9 @@ class _ElevationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = CreateProfileProviderl.watch(context)?.model;
-    return ElevatedButton(
+    return MyElevatedButton(
       onPressed: () => model?.createUser(context),
-      child: const Text('Далее'),
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
-          backgroundColor: MaterialStateProperty.all(MyColors.navyBlue),
-          padding: MaterialStateProperty.all(
-              const EdgeInsets.symmetric(horizontal: 120, vertical: 20))),
+      title: 'Далее',
     );
   }
 }

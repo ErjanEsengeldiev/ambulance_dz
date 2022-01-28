@@ -1,7 +1,7 @@
 import 'package:ambulance/ui/widgets/main_screens/doctors/doctors.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'colors/my_colors.dart';
+import 'package:ambulance/ui/widgets/const/colors/my_colors.dart';
 import 'main_screens/article/article.dart';
 import 'main_screens/profile/profile.dart';
 
@@ -20,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 4);
+    _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
   }
 
